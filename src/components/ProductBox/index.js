@@ -21,7 +21,7 @@ export default function ProductBox({
 }) {
   const [count, setCount] = useState(1)
 
-  const [heart, setHeart] = useState(farfaHeart)
+  const [heart, setHeart] = useState(true)
 
   const handleChangeHeart = () => {
     setHeart((previousHeart) => {
@@ -36,6 +36,9 @@ export default function ProductBox({
     if (count > 1) {
       setCount(count - 1)
     }
+  }
+  const clickWishList = () => {
+    wishList(heart, productname, price, sellerName, reviewCount)
   }
 
   const passCartToUppercompo = () => {
@@ -91,24 +94,23 @@ export default function ProductBox({
             {/* <div className={styles.break}></div> */}
             <div className={styles.heartbox}>
               <div className={styles.wishlist}>
-              {heart ? (
-                <FontAwesomeIcon
-                  icon={farfaHeart}
-                  onClick={handleChangeHeart}
-                  size={"lg"}
-                  color="#8B8EA1"
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={fasfaHeart}
-                  onClick={handleChangeHeart}
-                  size={"lg"}
-                  color="#8B8EA1"
-                />
-              )}
-              <div className={styles.txtwish}>wishlist</div>
-            </div>
-            
+                {heart ? (
+                  <FontAwesomeIcon
+                    icon={farfaHeart}
+                    onClick={handleChangeHeart}
+                    size={"lg"}
+                    color="#8B8EA1"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={fasfaHeart}
+                    onClick={handleChangeHeart}
+                    size={"lg"}
+                    color="#8B8EA1"
+                  />
+                )}
+                <div className={styles.txtwish}>wishlist</div>
+              </div>
             </div>
           </div>
           <div className={styles.infosec}>
@@ -152,13 +154,13 @@ export default function ProductBox({
           <div className={styles.btncontainer}>
             <div className={styles.btncart} onClick={passCartToUppercompo}>
               <div className={styles.icon}>
-                <FontAwesomeIcon icon={faCartPlus} size={"lg"}/>
+                <FontAwesomeIcon icon={faCartPlus} size={"lg"} />
               </div>
               <div>Add to cart</div>
             </div>
             <div className={styles.btnbuy}>
               <div className={styles.icon}>
-                <FontAwesomeIcon icon={faTags} size={"lg"}/>
+                <FontAwesomeIcon icon={faTags} size={"lg"} />
               </div>
               <div>Buy now</div>
             </div>

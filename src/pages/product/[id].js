@@ -18,36 +18,50 @@ export default function ProductDetail({ product }) {
       quantity: val,
     }
     ctx.addToCart(newProduct)
+    const test = (heart) => {
+      console.log(heart)
+      console.log(product._id)
+
+      fetch("/api/getItem", {
+        method: "POST",
+        body: JSON.stringify(product._id),
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+    }
+
+    return (
+      <div className={styles.container}>
+        <div className={styles.toplink}>
+          <Link href="/">
+            <a className={styles.ahome}>Home</a>
+          </Link>
+          /Search/{product.name}
+        </div>
+        <ProductBox
+          onCartChange={cartHandler}
+          productname={product.name}
+          price={product.price}
+          sellerName={product.sellerName}
+          reviewCount={product.reviews.length}
+          wishList={test}
+        />
+
+        <ProductInfo detail={product.detail} />
+        <ReviewCard reviews={product.reviews} />
+      </div>
+    )
   }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.toplink}>
-        <Link href="/">
-          <a className={styles.ahome}>Home</a>
-        </Link>
-        /Search/{product.name}
-      </div>
-      <ProductBox
-        onCartChange={cartHandler}
-        productname={product.name}
-        price={product.price}
-        sellerName={product.sellerName}
-        reviewCount={product.reviews.length}
-      />
-      <ProductInfo detail={product.detail} />
-      <ReviewCard reviews={product.reviews} />
-    </div>
-  )
-}
-
-export async function getServerSideProps(context) {
-  const { id } = context.query
-  await dbConnect()
-  const data = await Item.findById(id)
-  return {
-    props: {
-      product: JSON.parse(JSON.stringify(data)),
-    },
+  export async function getServerSideProps(context) {
+    const { id } = context.query
+    await dbConnect()
+    const data = await Item.findById(id)
+    return {
+      props: {
+        product: JSON.parse(JSON.stringify(data)),
+      },
+    }
   }
 }

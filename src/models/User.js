@@ -46,19 +46,7 @@ const UserSchema = new mongoose.Schema({
       isConfirm: Boolean,
     },
   ],
-  wishlist: [
-    {
-      itemName: String,
-      itemPrice: Number,
-      itemReviews: [
-        {
-          username: String,
-          userImage: String,
-          rating: Number,
-        },
-      ],
-    },
-  ],
+  wishlist: [],
   sellerItem: [{ itemName: String }], // รายการสินค้าที่ลงขายแล้ว (กรณี activeSeller: true)
 })
 
